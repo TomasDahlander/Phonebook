@@ -22,29 +22,32 @@ public class Client {
         iAdr = InetAddress.getLocalHost();
 
         try(Socket socketToServer = new Socket(iAdr,port);
-            PrintWriter out = new PrintWriter(socketToServer.getOutputStream(),true);
+            ObjectOutputStream objOut = new ObjectOutputStream(socketToServer.getOutputStream());
             ObjectInputStream objIn = new ObjectInputStream(socketToServer.getInputStream())) {
 
-            Intro intro = (Intro)objIn.readObject();
-            System.out.println(intro.getMessage());
+            Object searchWord; // User searchword
+            Response response; // Response from Server
 
-            String searchWord; // User searchword
-            System.out.println("Ange fullständigt namn att söka på:");
+            response = (Response)objIn.readObject();
+            System.out.println("Server: " + response.getIntro().getMessage());
+
+            System.out.println("Client: Ange fullständigt namn att söka på:");
+            System.out.print("Client: ");
 
             while ((searchWord = keyBoardIn.nextLine()) != null) {
-                out.println(searchWord);
-                Response response = (Response)objIn.readObject();
+                objOut.writeObject(searchWord);
+                response = (Response)objIn.readObject();
+
+                System.out.println("**********************************");
 
                 if(response.getContainsFriend()){
-                    System.out.println(response.getFriend().getData());
+                    System.out.println("Server:\n" + response.getFriend().getData());
                 }
-                else System.out.println("Återfanns ej i databasen: " + searchWord);
+                else System.out.println("Server: Återfanns ej i databasen: " + searchWord);
 
-//                if(obj instanceof Friend){
-//                    Friend friend = (Friend)obj;
-//                    System.out.println(friend.getData());
-//                }
-//                else System.out.println("Återfanns ej i databasen: " + searchWord);
+                System.out.println("**********************************");
+
+                System.out.print("Client: ");
             }
 
         }catch(ClassNotFoundException e){
