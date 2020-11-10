@@ -16,13 +16,13 @@ public class Server {
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             ObjectOutputStream objOut = new ObjectOutputStream(socket.getOutputStream())) {
 
-            objOut.writeObject("Ange fullständigt namn att söka på:");
+         //   objOut.writeObject("Ange fullständigt namn att söka på:");
 
             String searchWord;  // searchword from user
 
             while ((searchWord = in.readLine()) != null) {
-                Friend friend = d.getFriend(searchWord);
-                objOut.writeObject(friend);
+                Object obj = d.getFriend(searchWord);
+                objOut.writeObject(obj);
             }
 
         }catch(NoSuchElementException e){
