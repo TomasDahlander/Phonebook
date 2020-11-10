@@ -2,6 +2,8 @@ package Use_Serializable.Client;
 
 
 import Use_Serializable.Server.Friend;
+import Use_Serializable.Server.Intro;
+import Use_Serializable.Server.Response;
 
 import java.io.*;
 import java.net.InetAddress;
@@ -23,15 +25,26 @@ public class Client {
             PrintWriter out = new PrintWriter(socketToServer.getOutputStream(),true);
             ObjectInputStream objIn = new ObjectInputStream(socketToServer.getInputStream())) {
 
-            String searchWord; // User searchword
+            Intro intro = (Intro)objIn.readObject();
+            System.out.println(intro.getMessage());
 
-            System.out.println("Server: " + objIn.readObject());
+            String searchWord; // User searchword
+            System.out.println("Ange fullständigt namn att söka på:");
 
             while ((searchWord = keyBoardIn.nextLine()) != null) {
                 out.println(searchWord);
-                Friend friend = (Friend)objIn.readObject();
-                if(friend.getName().equals("ERROR-404")) System.out.println("Återfanns ej i databasen: " + searchWord);
-                else System.out.println(friend.getData());
+                Response response = (Response)objIn.readObject();
+
+                if(response.getContainsFriend()){
+                    System.out.println(response.getFriend().getData());
+                }
+                else System.out.println("Återfanns ej i databasen: " + searchWord);
+
+//                if(obj instanceof Friend){
+//                    Friend friend = (Friend)obj;
+//                    System.out.println(friend.getData());
+//                }
+//                else System.out.println("Återfanns ej i databasen: " + searchWord);
             }
 
         }catch(ClassNotFoundException e){
@@ -40,6 +53,7 @@ public class Client {
             System.out.println("Du kopplades ner:");
         }catch(IOException e){
             System.out.println("Gick ej att upprätta en uppkoppling mot servern:");
+            e.printStackTrace();
         }
     }
 

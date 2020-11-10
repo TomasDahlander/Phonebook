@@ -1,8 +1,9 @@
 package Use_Serializable.Server;
 
+import java.io.Serializable;
 
-public class Intro {
-    private final String intro = "Upprättad uppkoppling mot servern.";
+public class Intro implements Serializable {
+    private final String intro = "Upprättat uppkoppling mot servern.";
 
     public String getMessage(){
         return intro;
