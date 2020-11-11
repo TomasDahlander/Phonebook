@@ -1,12 +1,14 @@
-package Use_Serializable.Server;
+package Multiuser.Server;
 
-import java.io.*;
+import java.io.EOFException;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.NoSuchElementException;
 
 public class Server {
-
     Protocol procotol = new Protocol();
     private int port = 55555;
 
@@ -40,6 +42,6 @@ public class Server {
     }
 
     public static void main(String[] args) {
-        Server start = new Server();
+        Use_Serializable.Server.Server start = new Use_Serializable.Server.Server();
     }
 }

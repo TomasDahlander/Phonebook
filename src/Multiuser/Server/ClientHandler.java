@@ -1,19 +1,23 @@
-package Use_Serializable.Server;
+package Multiuser.Server;
 
-import java.io.*;
-import java.net.ServerSocket;
+import java.io.EOFException;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.NoSuchElementException;
 
-public class Server {
+public class ClientHandler extends Thread{
 
     Protocol procotol = new Protocol();
-    private int port = 55555;
+    private Socket socket;
 
-    public Server(){
-        try(ServerSocket socketFromClient = new ServerSocket(port);
-            Socket socket = socketFromClient.accept();
-            ObjectOutputStream objOut = new ObjectOutputStream(socket.getOutputStream());
+    public ClientHandler(Socket socket){
+        this.socket = socket;
+    }
+
+    public void run(){
+        try(ObjectOutputStream objOut = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream objIn = new ObjectInputStream(socket.getInputStream())) {
 
             String searchWord;  // searchword from client/user
@@ -27,19 +31,15 @@ public class Server {
                 objOut.writeObject(response);
             }
 
-
-
         }catch(ClassNotFoundException e){
-            System.out.println("Kunde inte läsa från användaren.");
+            System.out.println("Kunde ej framkalla skickat objekt.");
             e.printStackTrace();
         }catch(NoSuchElementException | EOFException e){
             System.out.println("Clienten kopplade ner sig:");
         }catch(IOException e){
-            System.out.println("Gick ej att upprätta uppkoppling:");
+            System.out.println("Kunde ej upprätta uppkoppling med clienten.");
+            e.printStackTrace();
         }
     }
 
-    public static void main(String[] args) {
-        Server start = new Server();
-    }
 }

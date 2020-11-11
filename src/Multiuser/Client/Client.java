@@ -1,8 +1,10 @@
-package Use_Serializable.Client;
+package Multiuser.Client;
 
-import Use_Serializable.Server.Response;
+import Multiuser.Server.Response;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -15,21 +17,21 @@ public class Client {
     private InetAddress iAdr;
     private Scanner keyBoardIn = new Scanner(System.in);
 
-    public Client() throws UnknownHostException {
-        iAdr = InetAddress.getLocalHost();
+    public Client() {
+        iAdr = InetAddress.getLoopbackAddress();
 
         try(Socket socketToServer = new Socket(iAdr,port);
             ObjectOutputStream objOut = new ObjectOutputStream(socketToServer.getOutputStream());
-            ObjectInputStream objIn = new ObjectInputStream(socketToServer.getInputStream())) {
+            ObjectInputStream objIn = new ObjectInputStream(socketToServer.getInputStream())){
 
             Object searchWord; // User searchword
-            Response response; // Response from Standard.Client.Client.Server
+            Response response; // Response from Server
 
             response = (Response)objIn.readObject();
-            System.out.println("Standard.Client.Client.Server: " + response.getIntro().getMessage());
+            System.out.println("Server: " + response.getIntro().getMessage());
 
-            System.out.println("Standard.Client.Client: Ange fullständigt namn att söka på:");
-            System.out.print("Standard.Client.Client: ");
+            System.out.println("Client: Ange fullständigt namn att söka på:");
+            System.out.print("Client: ");
 
             while ((searchWord = keyBoardIn.nextLine()) != null) {
                 objOut.writeObject(searchWord);
@@ -44,7 +46,7 @@ public class Client {
 
                 System.out.println("**********************************");
 
-                System.out.print("Standard.Client.Client: ");
+                System.out.print("Client: ");
             }
 
         }catch(ClassNotFoundException e){
@@ -57,7 +59,7 @@ public class Client {
         }
     }
 
-    public static void main(String[] args) throws UnknownHostException {
+    public static void main(String[] args) {
         Client start = new Client();
     }
 }

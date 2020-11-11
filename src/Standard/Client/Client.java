@@ -1,4 +1,4 @@
-package Client;
+package Standard.Client;
 
 import java.io.*;
 import java.net.InetAddress;
@@ -21,9 +21,9 @@ public class Client {
             BufferedReader in = new BufferedReader(new InputStreamReader(socketToServer.getInputStream()))) {
 
             String searchWord; // User searchword
-            String messageFromServer; // Message from Server
+            String messageFromServer; // Message from Standard.Client.Client.Server
 
-            System.out.println("Server: " + in.readLine());
+            System.out.println("Standard.Client.Client.Server: " + in.readLine());
 
             while ((searchWord = keyBoardIn.nextLine()) != null) {
                 out.println(searchWord);

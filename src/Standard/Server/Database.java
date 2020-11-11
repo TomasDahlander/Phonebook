@@ -1,4 +1,4 @@
-package Server;
+package Standard.Server;
 
 import java.util.*;
 

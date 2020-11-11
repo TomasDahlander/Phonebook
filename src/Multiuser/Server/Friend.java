@@ -1,13 +1,16 @@
-package Server;
+package Multiuser.Server;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Friend {
+public class Friend implements Serializable {
+
     private String name;
     private String mobilePhoneNr;
     private String email;
     private LocalDate birthday;
 
+    // Konstruktor
     public Friend(String name,String mobilePhoneNr,String email, String birthday){
         this.name = name;
         this.mobilePhoneNr = mobilePhoneNr;
@@ -15,12 +18,15 @@ public class Friend {
         this.birthday = LocalDate.parse(birthday);
     }
 
+    // Metoder
     public String getName(){
         return name;
     }
 
     public String getData(){
-        return "Name: " + name + ", Phone nr: " + mobilePhoneNr +
-                ", E-mail: " + email + ", Birthday: " + birthday.toString();
+        return "Name:     " + name +
+                "\nPhone nr: " + mobilePhoneNr +
+                "\nE-mail:   " + email +
+                "\nBirthday: " + birthday.toString();
     }
 }

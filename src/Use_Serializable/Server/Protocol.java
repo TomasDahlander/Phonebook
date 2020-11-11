@@ -1,6 +1,6 @@
 package Use_Serializable.Server;
 
-public class Procotol {
+public class Protocol {
 
     Database d = new Database();
 
