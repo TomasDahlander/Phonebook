@@ -7,7 +7,7 @@ public class Response implements Serializable {
     private Friend friend;
     private Intro intro;
 
-
+    // Konstruktorer
     public Response(){
         intro = new Intro();
     }
@@ -21,20 +21,13 @@ public class Response implements Serializable {
         this.containsFriend = true;
     }
 
-
-
+    // Metoder
     public boolean getContainsFriend(){
         return containsFriend;
-    }
-    public void setContainsFriend(boolean containsFriend){
-        this.containsFriend = containsFriend;
     }
 
     public Friend getFriend(){
         return friend;
-    }
-    public void setFriend(Friend friend){
-        this.friend = friend;
     }
 
     public Intro getIntro(){

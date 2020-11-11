@@ -10,6 +10,7 @@ public class Friend implements Serializable {
     private String email;
     private LocalDate birthday;
 
+    // Konstruktor
     public Friend(String name,String mobilePhoneNr,String email, String birthday){
         this.name = name;
         this.mobilePhoneNr = mobilePhoneNr;
@@ -17,6 +18,7 @@ public class Friend implements Serializable {
         this.birthday = LocalDate.parse(birthday);
     }
 
+    // Metoder
     public String getName(){
         return name;
     }

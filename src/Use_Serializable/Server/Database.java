@@ -7,6 +7,7 @@ public class Database {
 
     private List<Friend> friends = new ArrayList<>();
 
+    // Konstruktor
     public Database(){
         friends.add(new Friend("Håkan Andersson","070-123 45 67",
                 "h.andersson@gmail.com","1986-06-15"));
@@ -26,6 +27,7 @@ public class Database {
                 "n.lolito@gmail.com","1991-02-25"));
     }
 
+    // Metoder
     public Friend getFriend(String name){
         for(int i = 0; i < friends.size(); i++){
             if(name.trim().equalsIgnoreCase(friends.get(i).getName().trim())){
